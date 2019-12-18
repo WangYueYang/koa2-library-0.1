@@ -1,35 +1,37 @@
 const Koa = require('koa')
-const fs = require('fs')
-const router = require('./router')
+const path = require('path')
+
+const content = require('./util/content')
+const mimes = require('./util/mimes')
+
 const app = new Koa()
 
-const bodyParser = require('koa-bodyparser')
+const staticPath = './static'
 
-app.use(bodyParser())
-
-
-app.use(router.routes()).use(router.allowedMethods())
+function parseMime(url) {
+  let extName = path.extname(url) // 返回path拓展名
+  extName = extName ? extName.slice(1) : 'unKnown'
+  return mimes[extName]
+}
 
 app.use(async (ctx) => {
-  if (ctx.method === 'GET') {
-    let html = `
-    <h1>koa2 request post demo</h1>
-    <form method="POST" action="/post">
-        <p>userName</p>
-        <input name="userName" /><br/>
-        <p>nickName</p>
-        <input name="nickName" /><br/>
-        <p>email</p>
-        <input name="email" /><br/>
-        <button type="submit">submit</button>
-      </form>
-    `
-    ctx.body = html
-  } else if (ctx.method === 'POST') {
-    ctx.body = ctx.request.body
+  let fullStaticPath = path.join(__dirname, staticPath)
+
+  let _content = await content(ctx, fullStaticPath)
+
+  let _mime = parseMime(ctx.url)
+
+  if (_mime) {
+    ctx.type = _mime
+  }
+
+  if (_mime && _mime.indexOf('img/') >= 0) {
+    ctx.res.writeHead(200)
+    ctx.res.write(_content, 'binary')
+    ctx.res.end()
+  } else {
+    ctx.body = _content
   }
 })
-
-
 
 app.listen(3000)
