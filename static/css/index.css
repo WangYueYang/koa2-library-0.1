@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.list-table {
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.list-table th, .list-table td {
+  border: 1px solid #666;
+}
+.list-table td {
+  padding: 5px 10px;
+}
+.list-table button {
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+.list-table .action-td {
+  max-width: 200px;
+}

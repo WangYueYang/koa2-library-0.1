@@ -4,12 +4,20 @@ const router = new Router()
 
 module.exports = router
   .get('/', async (ctx) => {
-    let html = `
-      <p><a href="/page/404">404.html</a></p>
-      <p><a href="/index">index.html</a></p>
-    `
-    ctx.body = html
+    let title = 'My Library'
+    await ctx.render('index', {
+      title
+    })
   })
-  .get('index', async (ctx) => {
-    ctx.body = 'index page!!!'
+  .get('home', async (ctx) => {
+    let title = 'hello ejs home'
+    await ctx.render('home', {
+      title
+    })
+  })
+  .get('bookList', async (ctx) => {
+    await ctx.render('bookList')
+  })
+  .get('addBooks', async (ctx) => {
+    await ctx.render('addBooks')
   })
