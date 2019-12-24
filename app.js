@@ -1,9 +1,11 @@
 const Koa = require('koa')
 const path = require('path')
+const fs = require('fs')
+const util = require('util')
+
 const views = require('koa-views')
 const static = require('koa-static')
 const bodyParser = require('koa-bodyparser')
-
 const app = new Koa()
 
 const router = require('./router')
@@ -24,5 +26,12 @@ app.use(views(path.join(__dirname, './view'), {
 
 app.use(router.routes()).use(router.allowedMethods())
 
+let indexPath = path.join(__dirname, './public/index.html')
+const readFile = util.promisify(fs.readFile)
+
+app.use(async (ctx) => {
+  const fs = await readFile(indexPath, 'utf-8')
+  ctx.body = fs
+})
 
 app.listen(3000)

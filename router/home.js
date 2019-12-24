@@ -3,7 +3,7 @@ const Router = require('koa-router')
 const router = new Router()
 
 module.exports = router
-  .get('/', async (ctx) => {
+  .get('index', async (ctx) => {
     let title = 'My Library'
     await ctx.render('index', {
       title

@@ -1,11 +1,11 @@
 const config = {
   // 数据库配置
   dbBase: {
-    DATABASE: 'library',  // 选中的数据库
+    DATABASE: 'test1',  // 选中的数据库
     USERNAME: 'root',
     PASSWORD: '',
     PORT: '',
-    HOST: ''
+    HOST: '127.0.0.1'
   }
 }
 
