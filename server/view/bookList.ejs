@@ -43,9 +43,17 @@
   <a href="/">Go Home</a>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script>
-    $.get('/user/getBookList', function(data) {
-      console.log(data)
-    })
+    // $.get('/user/getBookList', function (data) {
+    //   console.log(data)
+    // })
+    let a = fetch('/user/getBookList')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        console.log(myJson);
+        return myJson
+      });
   </script>
 </body>
 

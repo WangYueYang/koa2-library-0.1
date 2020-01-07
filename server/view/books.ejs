@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <p>home Welcome to <%= title %></p>
+  <h1>Users</h1>
+
+  <% function user(user) { %>
+  <tr>
+    <td><%= user.id %> </td>
+    <td><%= user.bookname %> </td>
+    <td><%= user.bookauthor %> </td>
+    <td><%= user.create_time %> </td>
+    <td><%= user.price %> </td>
+    <td>
+      <button>操作</button>
+      <button>删除</button>
+    </td>
+  </tr>
+  <% } %>
+
+  <table style="width: 100%; text-align: center;">
+    <thead>
+      <tr>
+        <% heades.forEach(function(name){ %>
+        <th><%= name %></th>
+        <% }) %>
+      </tr>
+    </thead>
+    <tbody>
+      <% list.map(user) %>
+    </tbody>
+  </table>
+
+  <a href="/index">返回 index</a>
+</body>
+
+</html>

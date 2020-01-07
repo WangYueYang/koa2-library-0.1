@@ -2,17 +2,19 @@ const Koa = require('koa')
 const path = require('path')
 const fs = require('fs')
 const util = require('util')
-
 const views = require('koa-views')
-const static = require('koa-static')
+const Static = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const app = new Koa()
-
 const router = require('./router')
+
+import routers from './controllers'
+
+routers(router)
 
 // 静态资源
 const staticPath = './static'
-app.use(static(
+app.use(Static(
   path.join( __dirname,  staticPath)
 ))
 
@@ -26,7 +28,7 @@ app.use(views(path.join(__dirname, './view'), {
 
 app.use(router.routes()).use(router.allowedMethods())
 
-let indexPath = path.join(__dirname, './public/index.html')
+let indexPath = path.join(__dirname, '../public/index.html')
 const readFile = util.promisify(fs.readFile)
 
 app.use(async (ctx) => {
